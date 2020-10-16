@@ -281,7 +281,7 @@ class UpdateLicensesCommand extends Command
         if (count($matches)) {
             // Found - Replace it if prestashop one
             foreach ($matches as $match) {
-                if (stripos($match, 'prestashop') !== false) {
+                if ($this->shouldProcessForCurrentComment($match)) {
                     $content = str_replace($match, $text, $content);
                 }
             }
@@ -423,15 +423,8 @@ class UpdateLicensesCommand extends Command
         $style->listing($report['fixed']);
     }
 
-    /**
-     * Closure to filter parsed files.
-     *
-     * @see https://symfony.com/doc/3.4/components/finder.html#custom-filtering
-     */
-    protected function getFinderFilter()//: \Closure
+    protected function shouldProcessForCurrentComment($match)//: bool
     {
-        return function (\SplFileInfo $file) {
-            return !in_array($file->getBasename(), static::DEFAULT_IGNORED_FILES);
-        };
+        return stripos($match, 'prestashop') !== false;
     }
 }

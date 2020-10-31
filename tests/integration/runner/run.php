@@ -14,6 +14,7 @@ $modulesToTest = [
     'gsitemap',
     'dashproducts',
     'fakemodule',
+    'testignoredmodule',
 ];
 $workspaceID = 100;
 $filesystem = new Filesystem();
